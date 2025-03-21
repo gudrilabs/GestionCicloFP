@@ -1,16 +1,19 @@
-public class Estudiante {
-    public String Nombre_estudiante;  
-    public int ID_ESTUDIANTE;         
-    public int Edad_Estudiante;       
-   
-    public Estudiante(String Nombre_estudiante, int ID_ESTUDIANTE, int Edad_Estudiante) {
-        this.Nombre_estudiante = Nombre_estudiante;
-        this.ID_ESTUDIANTE = ID_ESTUDIANTE;
-        this.Edad_Estudiante = Edad_Estudiante;
-       
+class Estudiante {
+    private String nombre;
+    private int id;
+    private int edad;
+
+    public Estudiante(String nombre, int id, int edad) {
+        this.nombre = nombre;
+        this.id = id;
+        this.edad = edad;
     }
 
-    public String datos_estudiante() {
-        return "Estudiante: " + Nombre_estudiante + " (ID: " + ID_ESTUDIANTE + ") Edad: " + Edad_Estudiante;
+    public int getId() {
+        return id;
+    }
+
+    public String obtenerDatos() {
+        return "Estudiante: " + nombre + " (ID: " + id + ") Edad: " + edad;
     }
 }

@@ -1,59 +1,55 @@
 import java.util.ArrayList;
+import java.util.List;
 
-public class GestionCicloFP {
-    public ArrayList<Estudiante> lista_estudiantes = new ArrayList<>(); 
-    public ArrayList<Ciclo> lista_ciclos = new ArrayList<>();         
+class GestionCicloFP {
+    private List<Estudiante> estudiantes;
+    private List<Ciclo> ciclos;
 
-    public void AgregarEstudiante(String Nombre, int ID, int Edad) {  
-        lista_estudiantes.add(new Estudiante(Nombre, ID, Edad));
+    public GestionCicloFP() {
+        this.estudiantes = new ArrayList<>();
+        this.ciclos = new ArrayList<>();
     }
 
-    public void AgregarCiclo(String NombreCiclo) { 
-    	lista_ciclos.add(new Ciclo(NombreCiclo));
+    public void agregarEstudiante(String nombre, int id, int edad) {
+        estudiantes.add(new Estudiante(nombre, id, edad));
     }
 
-    public void Matricular_estudiante(int id_estudiante, String nombre_ciclo) { 
-        Estudiante est = null; 
-        Ciclo cur = null;      
+    public void agregarCiclo(String nombreCiclo) {
+        ciclos.add(new Ciclo(nombreCiclo));
+    }
 
-        for (Estudiante e : lista_estudiantes) { 
-            if (e.ID_ESTUDIANTE == id_estudiante) {
-                est = e;
-                break;
-            }
-        }
+    public void matricularEstudiante(int idEstudiante, String nombreCiclo) {
+        Estudiante estudiante = estudiantes.stream()
+                .filter(e -> e.getId() == idEstudiante)
+                .findFirst()
+                .orElse(null);
 
-        for (Ciclo c : lista_ciclos) { 
-            if (c.NOMBRE_CICLO.equals(nombre_ciclo)) {
-                cur = c;
-                break;
-            }
-        }
+        Ciclo ciclo = ciclos.stream()
+                .filter(c -> c.getNombre().equalsIgnoreCase(nombreCiclo))
+                .findFirst()
+                .orElse(null);
 
-        if (est != null && cur != null) {
-            cur.Agregar_estudiante(est);
+        if (estudiante != null && ciclo != null) {
+            ciclo.agregarEstudiante(estudiante);
         }
     }
 
-    public void Mostrar_ciclos() { 
-        for (Ciclo ciclo : lista_ciclos) {
-            System.out.println(ciclo.datos_ciclo());
-        }
+    public void mostrarCiclos() {
+        ciclos.forEach(ciclo -> System.out.println(ciclo.obtenerDatos()));
     }
 
     public static void main(String[] args) {
         GestionCicloFP gestion = new GestionCicloFP();
 
-        gestion.AgregarEstudiante("Alicia", 1, 20);
-        gestion.AgregarEstudiante("Roberto", 2, 22);
+        gestion.agregarEstudiante("Alicia", 1, 20);
+        gestion.agregarEstudiante("Roberto", 2, 22);
 
-        gestion.AgregarCiclo("DAW");
-        gestion.AgregarCiclo("ASIR");
+        gestion.agregarCiclo("DAW");
+        gestion.agregarCiclo("ASIR");
 
-        gestion.Matricular_estudiante(1, "DAW");
-        gestion.Matricular_estudiante(2, "ASIR");
+        gestion.matricularEstudiante(1, "DAW");
+        gestion.matricularEstudiante(2, "ASIR");
 
-        gestion.Mostrar_ciclos();
+        gestion.mostrarCiclos();
     }
 }
-
